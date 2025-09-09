@@ -1,2 +1,2 @@
-# Curfew/Road Status Frontend (skeleton)
-Init-only scaffold. No installs or commands executed by this script.
+# Curfew/Road Status Frontend 
+An incident reporting tool for Nepal's protest (deployment has been stopped due to resource/budget constraints). 
