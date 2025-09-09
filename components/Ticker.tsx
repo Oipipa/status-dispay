@@ -25,7 +25,7 @@ type Road = {
 
 async function fetchJSON<T>(url: string): Promise<T> {
     const r = await fetch(url, { cache: "no-store" });
-    if (!r.ok) throw new Error(String(r.status));
+    if (!r.ok) throw new Error(`${r.status} ${r.statusText}: ${await r.text()}`);
     return (await r.json()) as T;
 }
 
@@ -38,22 +38,24 @@ export default function Ticker() {
         queryKey: ["roads"],
         queryFn: () => fetchJSON(`${API_BASE}/roads?limit=25`)
     });
-    const merged =
-        (incidents || []).map(i => ({
+    const merged = (incidents || [])
+        .map((i) => ({
             ts: i.updated_at || i.created_at,
             kind: "incident",
             title: `${i.type}`,
             subtitle: `${i.location}`,
             extra: i.status
-        })).concat(
-            (roads || []).map(r => ({
+        }))
+        .concat(
+            (roads || []).map((r) => ({
                 ts: r.updated_at,
                 kind: "road",
                 title: `${r.road_name}`,
                 subtitle: `${r.status}`,
                 extra: r.details
             }))
-        ).sort((a, b) => (a.ts > b.ts ? -1 : 1));
+        )
+        .sort((a, b) => (a.ts > b.ts ? -1 : 1));
 
     return (
         <div className="w-full rounded-xl border border-neutral-200">

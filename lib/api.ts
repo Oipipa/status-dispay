@@ -25,7 +25,7 @@ export async function createIncident(body: {
     latitude: number;
     longitude: number;
 }) {
-    const r = await fetch(`${API_BASE}/incidents/`, {
+    const r = await fetch(`${API_BASE}/incidents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
