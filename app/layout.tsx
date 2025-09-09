@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "./../styles/globals.css";
+import Providers from "./providers";
 
 export const metadata = {
   title: "Curfew Tracker",
@@ -15,7 +16,9 @@ export const viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
